@@ -363,8 +363,8 @@ const DamnxLanding = () => {
   ];
 
   const stats = [
-    { value: "500+", label: "Projects Delivered" },
-    { value: "50+", label: "Countries Served" },
+    { value: "50+", label: "Projects Delivered" },
+    { value: "10+", label: "Countries Served" },
     { value: "99.9%", label: "Uptime SLA" },
     { value: "24/7", label: "Support Available" }
   ];
