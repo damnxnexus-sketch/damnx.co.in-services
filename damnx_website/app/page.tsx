@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
-import { ChevronDown, Code, Zap, Shield, Globe, ArrowRight, Menu, X, Sparkles, Rocket, Users } from 'lucide-react';
+import { ChevronDown, Code, Zap, Shield, Globe, ArrowRight, Sparkles, Rocket, Users } from 'lucide-react';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
@@ -13,9 +13,9 @@ const DamnxLanding = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sceneRef = useRef<{ scene: THREE.Scene; camera: THREE.PerspectiveCamera; renderer: THREE.WebGLRenderer } | null>(null);
   const animationFrameRef = useRef<number | null>(null);
-  const heroTextRef = useRef<HTMLDivElement>(null);
-  const heroSubtextRef = useRef<HTMLParagraphElement>(null);
-  const heroDescRef = useRef<HTMLParagraphElement>(null);
+  const heroTextRef = useRef(null);
+  const heroSubtextRef = useRef(null);
+  const heroDescRef = useRef(null);
 
   // GSAP Hero Animations
   useEffect(() => {
@@ -113,7 +113,7 @@ const DamnxLanding = () => {
     scene.add(particles);
 
     // Create large 3D geometric objects
-    const geometries: THREE.Mesh[] = [];
+    const geometries = [];
 
     // Large Torus 1
     const torusGeo1 = new THREE.TorusGeometry(3, 0.3, 16, 100);
@@ -284,7 +284,7 @@ const DamnxLanding = () => {
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = (e) => {
       setMousePos({ 
         x: (e.clientX / window.innerWidth) * 2 - 1, 
         y: (e.clientY / window.innerHeight) * 2 - 1 
@@ -640,9 +640,6 @@ const DamnxLanding = () => {
             }
           }
         `}</style>
-
-        {/* Dynamic Island Navigation */}
-        {/* Removed - header is now in layout */}
 
         {/* Hero Section */}
         <section className="hero-section relative flex items-center justify-center overflow-hidden">
