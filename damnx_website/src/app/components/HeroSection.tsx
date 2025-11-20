@@ -273,11 +273,21 @@ const DamnxLanding = () => {
       // Cleanup
       geometries.forEach(obj => {
         if (obj.geometry) obj.geometry.dispose();
-        if (obj.material) obj.material.dispose();
+        if (obj.material) {
+          if (Array.isArray(obj.material)) {
+            obj.material.forEach(mat => mat.dispose());
+          } else {
+            obj.material.dispose();
+          }
+        }
       });
       
       particles.geometry.dispose();
-      particles.material.dispose();
+      if (Array.isArray(particles.material)) {
+        particles.material.forEach(mat => mat.dispose());
+      } else {
+        particles.material.dispose();
+      }
       renderer.dispose();
     };
   }, []);
