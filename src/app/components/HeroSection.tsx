@@ -9,7 +9,6 @@ const DamnxLanding = () => {
   const [chatOpen, setChatOpen] = useState(false);
   const [chatStep, setChatStep] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const sceneRef = useRef<{ scene: THREE.Scene; camera: THREE.PerspectiveCamera; renderer: THREE.WebGLRenderer } | null>(null);
   const animationFrameRef = useRef<number | null>(null);
 
   // Load Calendly script
@@ -45,7 +44,7 @@ const DamnxLanding = () => {
     if (!canvasRef.current) return;
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x000000, 0.05);
+    scene.fog = new THREE.FogExp2(0x000000, 0.02);
 
     const camera = new THREE.PerspectiveCamera(
       75,
@@ -53,132 +52,186 @@ const DamnxLanding = () => {
       0.1,
       1000
     );
-    camera.position.z = 8;
+    camera.position.z = 15;
 
     const renderer = new THREE.WebGLRenderer({ 
       canvas: canvasRef.current, 
       alpha: true, 
-      antialias: true 
+      antialias: true,
+      powerPreference: 'high-performance'
     });
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    sceneRef.current = { scene, camera, renderer };
+    const geometries: any[] = [];
 
-    const particleCount = 3000;
-    const positions = new Float32Array(particleCount * 3);
-    const colors = new Float32Array(particleCount * 3);
-    
-    for (let i = 0; i < particleCount; i++) {
-      const i3 = i * 3;
-      const radius = 20 + Math.random() * 30;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos((Math.random() * 2) - 1);
-      
-      positions[i3] = radius * Math.sin(phi) * Math.cos(theta);
-      positions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-      positions[i3 + 2] = radius * Math.cos(phi) - 20;
-      
-      colors[i3] = 1.0;
-      colors[i3 + 1] = Math.random() * 0.3;
-      colors[i3 + 2] = Math.random() * 0.1;
-    }
-    
-    const particlesGeometry = new THREE.BufferGeometry();
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-    
-    const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.15,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.9,
-      blending: THREE.AdditiveBlending,
-      sizeAttenuation: true
-    });
-    
-    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-    scene.add(particles);
+    // Grid Floor System
+    const gridHelper = new THREE.GridHelper(60, 60, 0xdc2626, 0x3a0000);
+    gridHelper.position.y = -8;
+    gridHelper.material.opacity = 0.25;
+    gridHelper.material.transparent = true;
+    scene.add(gridHelper);
+    geometries.push(gridHelper);
 
-    const geometries: THREE.Mesh[] = [];
-
-    const torusGeo1 = new THREE.TorusGeometry(3, 0.3, 16, 100);
+    // Large Torus 1
+    const torusGeo1 = new THREE.TorusGeometry(4, 0.4, 16, 100);
     const torusMat1 = new THREE.MeshBasicMaterial({
       color: 0xef4444,
       wireframe: true,
       transparent: true,
-      opacity: 0.6
+      opacity: 0.5
     });
     const torus1 = new THREE.Mesh(torusGeo1, torusMat1);
-    torus1.position.set(-5, 3, -10);
+    torus1.position.set(-8, 4, -15);
     scene.add(torus1);
     geometries.push(torus1);
 
-    const torusGeo2 = new THREE.TorusGeometry(2.5, 0.25, 16, 100);
+    // Large Torus 2
+    const torusGeo2 = new THREE.TorusGeometry(3.5, 0.3, 16, 100);
     const torusMat2 = new THREE.MeshBasicMaterial({
       color: 0xdc2626,
       wireframe: true,
       transparent: true,
-      opacity: 0.5
+      opacity: 0.4
     });
     const torus2 = new THREE.Mesh(torusGeo2, torusMat2);
-    torus2.position.set(6, -4, -15);
+    torus2.position.set(10, -6, -20);
     torus2.rotation.x = Math.PI / 3;
     scene.add(torus2);
     geometries.push(torus2);
 
-    const octaGeo = new THREE.OctahedronGeometry(2, 0);
-    const octaMat = new THREE.MeshBasicMaterial({
+    // Torus Knot
+    const torusKnotGeo = new THREE.TorusKnotGeometry(2.5, 0.6, 100, 16);
+    const torusKnotMat = new THREE.MeshBasicMaterial({
       color: 0xf97316,
       wireframe: true,
       transparent: true,
-      opacity: 0.7
+      opacity: 0.45
     });
-    const octa = new THREE.Mesh(octaGeo, octaMat);
-    octa.position.set(4, 5, -8);
-    scene.add(octa);
-    geometries.push(octa);
+    const torusKnot = new THREE.Mesh(torusKnotGeo, torusKnotMat);
+    torusKnot.position.set(0, 2, -25);
+    scene.add(torusKnot);
+    geometries.push(torusKnot);
 
-    for (let i = 0; i < 8; i++) {
-      const size = 0.5 + Math.random() * 1;
-      const smallOctaGeo = new THREE.OctahedronGeometry(size, 0);
-      const smallOctaMat = new THREE.MeshBasicMaterial({
-        color: i % 2 === 0 ? 0xdc2626 : 0xf97316,
+    // DNA Helix Structure
+    const helixGroup = new THREE.Group();
+    for (let i = 0; i < 40; i++) {
+      const angle = (i / 40) * Math.PI * 6;
+      const y = i * 0.6 - 12;
+      const x = Math.cos(angle) * 3;
+      const z = Math.sin(angle) * 3 - 18;
+
+      const sphereGeo = new THREE.SphereGeometry(0.2, 8, 8);
+      const sphereMat = new THREE.MeshBasicMaterial({
+        color: i % 2 === 0 ? 0xef4444 : 0xf97316,
         wireframe: true,
+        transparent: true,
+        opacity: 0.7
+      });
+      const sphere = new THREE.Mesh(sphereGeo, sphereMat);
+      sphere.position.set(x, y, z);
+      helixGroup.add(sphere);
+    }
+    scene.add(helixGroup);
+    geometries.push(helixGroup);
+
+    // Icosahedron
+    const icoGeo = new THREE.IcosahedronGeometry(3, 0);
+    const icoMat = new THREE.MeshBasicMaterial({
+      color: 0xef4444,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.5
+    });
+    const ico = new THREE.Mesh(icoGeo, icoMat);
+    ico.position.set(-10, -8, -18);
+    scene.add(ico);
+    geometries.push(ico);
+
+    // Floating Cubes Network
+    for (let i = 0; i < 15; i++) {
+      const cubeSize = 0.4 + Math.random() * 0.6;
+      const cubeGeo = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
+      const edges = new THREE.EdgesGeometry(cubeGeo);
+      const lineMat = new THREE.LineBasicMaterial({
+        color: i % 3 === 0 ? 0xef4444 : i % 3 === 1 ? 0xdc2626 : 0xf97316,
         transparent: true,
         opacity: 0.5
       });
-      const smallOcta = new THREE.Mesh(smallOctaGeo, smallOctaMat);
-      smallOcta.position.set(
-        (Math.random() - 0.5) * 20,
-        (Math.random() - 0.5) * 20,
-        -5 - Math.random() * 20
+      const cube = new THREE.LineSegments(edges, lineMat);
+      cube.position.set(
+        (Math.random() - 0.5) * 30,
+        (Math.random() - 0.5) * 30,
+        -8 - Math.random() * 25
       );
-      scene.add(smallOcta);
-      geometries.push(smallOcta);
+      scene.add(cube);
+      geometries.push(cube);
     }
+
+    // Large sphere wireframe in far background
+    const sphereGeo = new THREE.SphereGeometry(8, 32, 32);
+    const sphereMat = new THREE.MeshBasicMaterial({
+      color: 0xdc2626,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.15
+    });
+    const sphere = new THREE.Mesh(sphereGeo, sphereMat);
+    sphere.position.set(0, 0, -35);
+    scene.add(sphere);
+    geometries.push(sphere);
+
+    // Octahedrons
+    for (let i = 0; i < 10; i++) {
+      const octaGeo = new THREE.OctahedronGeometry(0.8 + Math.random() * 1.2, 0);
+      const octaMat = new THREE.MeshBasicMaterial({
+        color: i % 2 === 0 ? 0xef4444 : 0xf97316,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.4
+      });
+      const octa = new THREE.Mesh(octaGeo, octaMat);
+      octa.position.set(
+        (Math.random() - 0.5) * 35,
+        (Math.random() - 0.5) * 35,
+        -10 - Math.random() * 20
+      );
+      scene.add(octa);
+      geometries.push(octa);
+    }
+
+    let lastScrollY = 0;
+    let targetCameraY = 0;
+    let currentCameraY = 0;
 
     const animate = () => {
       animationFrameRef.current = requestAnimationFrame(animate);
-      const time = Date.now() * 0.0005;
+      const time = Date.now() * 0.0003;
       
-      particles.rotation.y = time * 0.1;
-      particles.rotation.x = Math.sin(time * 0.5) * 0.2;
+      // Smooth camera scroll
+      currentCameraY += (targetCameraY - currentCameraY) * 0.05;
+      camera.position.y = currentCameraY;
       
+      // Gentle mouse parallax
+      const targetX = mousePos.x * 1.5;
+      const targetMouseY = -mousePos.y * 1.5;
+      camera.position.x += (targetX - camera.position.x) * 0.02;
+      camera.lookAt(targetX * 0.3, targetMouseY * 0.3 + currentCameraY, 0);
+      
+      // Animate geometries
       geometries.forEach((obj, index) => {
-        obj.rotation.x += 0.003 + (index * 0.0002);
-        obj.rotation.y += 0.002 + (index * 0.0003);
-        obj.position.y += Math.sin(time + index) * 0.01;
+        if (obj === gridHelper) {
+          obj.rotation.y = time * 0.08;
+        } else if (obj.rotation) {
+          obj.rotation.x += 0.002 + (index * 0.0001);
+          obj.rotation.y += 0.0015 + (index * 0.0002);
+        }
+        
+        if (obj.position && obj !== gridHelper) {
+          obj.position.y += Math.sin(time * 0.8 + index) * 0.008;
+        }
       });
-      
-      const targetY = -(scrollY * 0.003);
-      camera.position.y += (targetY - camera.position.y) * 0.05;
-      
-      const targetX = mousePos.x * 2;
-      const targetCamY = -mousePos.y * 2;
-      camera.position.x += (targetX - camera.position.x) * 0.03;
-      camera.lookAt(targetX * 0.5, targetCamY * 0.5 + camera.position.y, 0);
       
       renderer.render(scene, camera);
     };
@@ -191,35 +244,39 @@ const DamnxLanding = () => {
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
 
+    const handleScroll = () => {
+      const newScrollY = window.scrollY;
+      lastScrollY = newScrollY;
+      targetCameraY = -(newScrollY * 0.002);
+    };
+
     window.addEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
+      
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
+      
       geometries.forEach(obj => {
         if (obj.geometry) obj.geometry.dispose();
         if (obj.material) {
           if (Array.isArray(obj.material)) {
-            obj.material.forEach(mat => mat.dispose());
+            obj.material.forEach((mat: any) => mat.dispose());
           } else {
             obj.material.dispose();
           }
         }
       });
-      particles.geometry.dispose();
-      if (Array.isArray(particles.material)) {
-        particles.material.forEach(mat => mat.dispose());
-      } else {
-        particles.material.dispose();
-      }
+      
       renderer.dispose();
     };
-  }, [scrollY, mousePos.x, mousePos.y]);
+  }, []);
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({ 
         x: (e.clientX / window.innerWidth) * 2 - 1, 
@@ -227,11 +284,9 @@ const DamnxLanding = () => {
       });
     };
     
-    window.addEventListener('scroll', handleScroll);
     window.addEventListener('mousemove', handleMouseMove);
     
     return () => {
-      window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
@@ -394,9 +449,6 @@ const DamnxLanding = () => {
           0%, 100% { opacity: 0.6; }
           50% { opacity: 1; }
         }
-        .parallax-item {
-          transition: transform 0.3s ease-out;
-        }
         .glass-card {
           background: rgba(10, 10, 10, 0.6);
           backdrop-filter: blur(20px);
@@ -505,10 +557,7 @@ const DamnxLanding = () => {
                 <div 
                   key={index} 
                   className="observe glass-card rounded-2xl p-8 hover:border-red-500/50 transition-all group"
-                  style={{ 
-                    animationDelay: `${index * 0.1}s`,
-                    transform: `translateX(${(index % 2 === 0 ? -20 : 20) * (1 - scrollY / 1000)}px)`
-                  }}
+                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div className="flex flex-col md:flex-row items-start gap-6">
                     <div className={`flex-shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center floating`}>
