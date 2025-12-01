@@ -66,6 +66,33 @@ const DamnxLanding = () => {
 
     const geometries: any[] = [];
 
+    // Red dot stars
+    const starGroup = new THREE.Group();
+    const starCount = 3000;
+    for (let i = 0; i < starCount; i++) {
+      const starGeo = new THREE.CircleGeometry(0.05 + Math.random() * 0.1, 8);
+      const starMat = new THREE.MeshBasicMaterial({
+        color: Math.random() > 0.3 ? 0xef4444 : 0xf97316,
+        transparent: true,
+        opacity: 0.3 + Math.random() * 0.7
+      });
+      const star = new THREE.Mesh(starGeo, starMat);
+      star.position.set(
+        (Math.random() - 0.5) * 100,
+        (Math.random() - 0.5) * 100,
+        -5 - Math.random() * 40
+      );
+      star.userData = {
+        speedX: (Math.random() - 0.5) * 0.02,
+        speedY: (Math.random() - 0.5) * 0.02,
+        pulseSpeed: 0.5 + Math.random() * 1.5,
+        pulseOffset: Math.random() * Math.PI * 2
+      };
+      starGroup.add(star);
+    }
+    scene.add(starGroup);
+    geometries.push(starGroup);
+
     // Grid Floor System
     const gridHelper = new THREE.GridHelper(60, 60, 0xdc2626, 0x3a0000);
     gridHelper.position.y = -8;
@@ -219,16 +246,33 @@ const DamnxLanding = () => {
       camera.position.x += (targetX - camera.position.x) * 0.02;
       camera.lookAt(targetX * 0.3, targetMouseY * 0.3 + currentCameraY, 0);
       
+      // Animate star dots independently
+      starGroup.children.forEach((star: any) => {
+        star.position.x += star.userData.speedX;
+        star.position.y += star.userData.speedY;
+        
+        // Wrap around screen
+        if (star.position.x > 50) star.position.x = -50;
+        if (star.position.x < -50) star.position.x = 50;
+        if (star.position.y > 50) star.position.y = -50;
+        if (star.position.y < -50) star.position.y = 50;
+        
+        // Pulse effect
+        star.material.opacity = 0.3 + Math.sin(time * star.userData.pulseSpeed + star.userData.pulseOffset) * 0.4;
+      });
+      
       // Animate geometries
       geometries.forEach((obj, index) => {
         if (obj === gridHelper) {
           obj.rotation.y = time * 0.08;
+        } else if (obj === starGroup) {
+          // Stars handled separately
         } else if (obj.rotation) {
           obj.rotation.x += 0.002 + (index * 0.0001);
           obj.rotation.y += 0.0015 + (index * 0.0002);
         }
         
-        if (obj.position && obj !== gridHelper) {
+        if (obj.position && obj !== gridHelper && obj !== starGroup) {
           obj.position.y += Math.sin(time * 0.8 + index) * 0.008;
         }
       });
@@ -505,12 +549,12 @@ const DamnxLanding = () => {
             </div>
 
             <h1 className="text-7xl md:text-9xl font-black mb-10 leading-none observe">
-              <span className="gradient-text block mb-2">DAMNX</span>
-              <span className="text-white block">Solutions</span>
+              <span className="block mb-2 text-gray-400">DAMNX</span>
+              <span className="gradient-text block">Solution's</span>
             </h1>
             
             <p className="text-2xl md:text-3xl text-gray-300 mb-8 max-w-4xl mx-auto font-light observe">
-              Building <span className="text-red-500 font-semibold">industry-ahead software</span> that sets tomorrow's standards
+              Building <span className="text-red-500 font-semibold">industry-level software</span> solutions with uncompromising coding standards
             </p>
 
             <p className="text-lg text-gray-400 mb-14 max-w-2xl mx-auto observe">
