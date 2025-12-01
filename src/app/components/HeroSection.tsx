@@ -563,7 +563,7 @@ const DamnxLanding = () => {
             </div>
 
             <h1 className="text-7xl md:text-9xl font-black mb-10 leading-none observe">
-              <span className="block mb-2 ">DAMNX</span>
+              <span className="block mb-2 text-gray-400">DAMNX</span>
               <span className="gradient-text block">Solution's</span>
             </h1>
             
@@ -736,18 +736,20 @@ const DamnxLanding = () => {
       </div>
 
       {/* Chat Bot */}
-      <ChatBot />
-      
-      {/* Chat Button */}
-      <button
-        onClick={() => {
-          setChatOpen(true);
-          setChatStep(0);
-        }}
-        className={`fixed bottom-6 right-6 z-40 w-16 h-16 bg-gradient-to-r from-red-600 to-orange-500 rounded-full flex items-center justify-center glow-red hover:scale-110 transition-all ${chatOpen ? 'scale-0' : 'scale-100'}`}
-      >
-        <MessageCircle className="w-8 h-8" />
-      </button>
+     {/* Chat Bot - Updated z-index */}
+<ChatBot />
+
+{/* Chat Button - Updated z-index */}
+<button
+  onClick={() => {
+    setChatOpen(true);
+    setChatStep(0);
+  }}
+  className={`fixed bottom-6 right-6 z-[10000001] w-16 h-16 bg-gradient-to-r from-red-600 to-orange-500 rounded-full flex items-center justify-center glow-red hover:scale-110 transition-all ${chatOpen ? 'scale-0' : 'scale-100'}`}
+>
+  <MessageCircle className="w-8 h-8" />
+</button>
+
     </div>
   );
 };
