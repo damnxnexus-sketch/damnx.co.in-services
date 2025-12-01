@@ -428,7 +428,7 @@ const DamnxLanding = () => {
     ];
 
     return (
-      <div className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ${chatOpen ? 'scale-100' : 'scale-0'}`}>
+      <div className={`fixed bottom-13 right-6 z-50 transition-all duration-300 ${chatOpen ? 'scale-100' : 'scale-0'}`}>
         <div className="glass-strong rounded-2xl shadow-2xl w-80 overflow-hidden border border-red-500/30">
           <div className="bg-gradient-to-r from-red-600 to-orange-500 p-4 flex justify-between items-center">
             <div className="flex items-center gap-2">
@@ -563,7 +563,7 @@ const DamnxLanding = () => {
             </div>
 
             <h1 className="text-7xl md:text-9xl font-black mb-10 leading-none observe">
-              <span className="block mb-2 text-gray-400">DAMNX</span>
+              <span className="block mb-2 text-white">DAMNX</span>
               <span className="gradient-text block">Solution's</span>
             </h1>
             
@@ -726,7 +726,7 @@ const DamnxLanding = () => {
                 <span className="text-red-500">DAMNX</span>
                 <span className="text-white font-light"> Solutions</span>
               </div>
-              <p className="text-gray-400 text-lg mb-6">Building tomorrow's software, today</p>
+              <p className="text-gray-400 text-lg mb-6">Building tomorrows software, today</p>
             </div>
             <div className="text-center text-gray-600 text-sm pt-8 border-t border-red-900/10">
               © 2024 DAMNX Solutions. All rights reserved.
@@ -736,20 +736,18 @@ const DamnxLanding = () => {
       </div>
 
       {/* Chat Bot */}
-     {/* Chat Bot - Updated z-index */}
-<ChatBot />
-
-{/* Chat Button - Updated z-index */}
-<button
-  onClick={() => {
-    setChatOpen(true);
-    setChatStep(0);
-  }}
-  className={`fixed bottom-6 right-6 z-[10000001] w-16 h-16 bg-gradient-to-r from-red-600 to-orange-500 rounded-full flex items-center justify-center glow-red hover:scale-110 transition-all ${chatOpen ? 'scale-0' : 'scale-100'}`}
->
-  <MessageCircle className="w-8 h-8" />
-</button>
-
+      <ChatBot />
+      
+      {/* Chat Button */}
+      <button
+        onClick={() => {
+          setChatOpen(true);
+          setChatStep(0);
+        }}
+        className={`fixed bottom-20 right-6 z-400 w-16 h-16 bg-gradient-to-r from-red-600 to-orange-500 rounded-full flex items-center justify-center glow-red hover:scale-110 transition-all ${chatOpen ? 'scale-0' : 'scale-100'}`}
+      >
+        <MessageCircle className="w-8 h-8" />
+      </button>
     </div>
   );
 };
