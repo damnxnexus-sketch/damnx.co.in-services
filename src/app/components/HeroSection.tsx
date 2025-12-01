@@ -480,7 +480,7 @@ const DamnxLanding = () => {
 
   return (
     <div className="bg-black text-white overflow-hidden relative">
-      <style>{`
+     <style>{`
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(40px); }
           to { opacity: 1; transform: translateY(0); }
@@ -492,6 +492,10 @@ const DamnxLanding = () => {
         @keyframes pulse {
           0%, 100% { opacity: 0.6; }
           50% { opacity: 1; }
+        }
+        @keyframes animate-background {
+          0% { background-position: 0 50%; }
+          100% { background-position: 100% 50%; }
         }
         .glass-card {
           background: rgba(10, 10, 10, 0.6);
@@ -508,6 +512,16 @@ const DamnxLanding = () => {
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
+        }
+        .masked-text {
+          color: transparent;
+          background-image: url('https://images.unsplash.com/photo-1732535725600-f805d8b33c9c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+          background-size: 200%;
+          background-position: 0 50%;
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: animate-background 5s infinite alternate linear;
         }
         .glow-red {
           box-shadow: 0 0 30px rgba(220, 38, 38, 0.6), 0 0 60px rgba(220, 38, 38, 0.4);
@@ -549,7 +563,7 @@ const DamnxLanding = () => {
             </div>
 
             <h1 className="text-7xl md:text-9xl font-black mb-10 leading-none observe">
-              <span className="block mb-2 text-gray-400">DAMNX</span>
+              <span className="block mb-2 ">DAMNX</span>
               <span className="gradient-text block">Solution's</span>
             </h1>
             
