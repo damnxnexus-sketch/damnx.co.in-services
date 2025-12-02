@@ -51,7 +51,7 @@ export default function DamnxHeader() {
                 onClick={handleGetStarted}
                 className="bg-red-600 text-white px-5 lg:px-6 py-2 rounded-full hover:bg-red-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-red-600/50 text-sm lg:text-base"
               >
-                Get Started
+                Book Meeting
               </button>
             </nav>
 

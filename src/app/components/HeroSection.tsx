@@ -595,7 +595,7 @@ script.onload = () => {
 
           <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 observe">
             <span className="text-sm text-gray-500 uppercase tracking-wider">Discover Our Process</span>
-            <ChevronDown className="w-8 h-8 text-red-500 animate-bounce" />
+            <ChevronDown className="w-8 h-8 text-red-500" />
           </div>
         </section>
 
@@ -619,7 +619,7 @@ script.onload = () => {
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div className="flex flex-col md:flex-row items-start gap-6">
-                    <div className={`flex-shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center floating`}>
+                    <div className={`flex-shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center `}>
                       {step.icon}
                     </div>
                     <div className="flex-1">
