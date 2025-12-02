@@ -564,8 +564,8 @@ script.onload = () => {
             </div>
 
             <h1 className="text-7xl md:text-9xl font-black mb-10 leading-none observe">
-              <span className="block mb-2 text-white">DAMNX</span>
-              <span className="gradient-text block">Solution's</span>
+              <span className="block mb-2 text-red-600">DAMN<span className='text-white'>X</span></span>
+              <span className="text-white block">SO<span className='text-red-800'>L</span>UTION<span className='text-red-800'>S</span></span>
             </h1>
             
             <p className="text-2xl md:text-3xl text-gray-300 mb-8 max-w-4xl mx-auto font-light observe">
