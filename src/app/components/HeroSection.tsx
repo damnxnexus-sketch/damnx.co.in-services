@@ -19,19 +19,20 @@ const DamnxLanding = () => {
     document.head.appendChild(link);
 
     const script = document.createElement('script');
-    script.src = 'https://assets.calendly.com/assets/external/widget.js';
-    script.async = true;
-    script.onload = () => {
-      if (window.Calendly) {
-        window.Calendly.initBadgeWidget({
-          url: 'https://calendly.com/damnx-nexus/30min',
-          text: 'Schedule time with us',
-          color: '#dc2626',
-          textColor: '#ffffff',
-          branding: true
-        });
-      }
-    };
+script.src = 'https://assets.calendly.com/assets/external/widget.js';
+script.async = true;
+script.onload = () => {
+  const calendly = (window as any).Calendly;
+  if (calendly) {
+    calendly.initBadgeWidget({
+      url: 'https://calendly.com/damnx-nexus/30min',
+      text: 'Schedule time with us',
+      color: '#dc2626',
+      textColor: '#ffffff',
+      branding: true
+    });
+  }
+};
     document.body.appendChild(script);
 
     return () => {
@@ -413,13 +414,13 @@ const DamnxLanding = () => {
   ];
 
   const openCalendly = () => {
-    if (window.Calendly) {
-      window.Calendly.initPopupWidget({
-        url: 'https://calendly.com/damnx-nexus/30min'
-      });
-    }
-    return false;
-  };
+  if (window.Calendly) {
+    (window.Calendly as any).initPopupWidget({
+      url: 'https://calendly.com/damnx-nexus/30min'
+    });
+  }
+};
+
 
   const ChatBot = () => {
     const chatMessages = [
