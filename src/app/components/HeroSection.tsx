@@ -720,20 +720,109 @@ script.onload = () => {
         </section>
 
         {/* Footer */}
-        <footer className="border-t border-red-900/20 py-16 px-6 glass-strong">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-8">
-              <div className="text-4xl font-bold mb-4">
-                <span className="text-red-500">DAMNX</span>
-                <span className="text-white font-light"> Solutions</span>
-              </div>
-              <p className="text-gray-400 text-lg mb-6">Building tomorrows software, today</p>
-            </div>
-            <div className="text-center text-gray-600 text-sm pt-8 border-t border-red-900/10">
-              © 2024 DAMNX Solutions. All rights reserved.
-            </div>
-          </div>
-        </footer>
+       <footer className="border-t border-red-900/20 py-16 px-6 glass-strong">
+  <div className="max-w-7xl mx-auto">
+    {/* Header Section */}
+    <div className="text-center mb-12">
+      <div className="text-4xl font-bold mb-4">
+        <span className="text-red-500">DAMNX</span>
+        <span className="text-white font-light"> Solutions</span>
+      </div>
+      <p className="text-gray-400 text-lg">Building tomorrow's software, today</p>
+    </div>
+
+    {/* Social Icons */}
+    <div className="flex gap-4 justify-center mb-12">
+      <a 
+        href="https://www.linkedin.com/in/damnx-solutions-280b3938b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" 
+        className="w-10 h-10 rounded-full bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white flex items-center justify-center transition-all"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+          <rect x="2" y="9" width="4" height="12"></rect>
+          <circle cx="4" cy="4" r="2"></circle>
+        </svg>
+      </a>
+      <a 
+        href="https://www.instagram.com/damnx_solutions?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" 
+        className="w-10 h-10 rounded-full bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white flex items-center justify-center transition-all"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+      </a>
+    </div>
+
+    {/* Services and Contact Grid */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12 max-w-3xl mx-auto">
+      {/* Services */}
+      <div className="text-center">
+        <h3 className="text-lg font-semibold text-white mb-6">Services</h3>
+        <ul className="space-y-3 text-center">
+          <li><a href="#" className="text-gray-400 hover:text-red-500 transition-colors text-sm">Web Development</a></li>
+          <li><a href="#" className="text-gray-400 hover:text-red-500 transition-colors text-sm">Mobile Apps</a></li>
+          <li><a href="#" className="text-gray-400 hover:text-red-500 transition-colors text-sm">E-Commerce</a></li>
+          <li><a href="#" className="text-gray-400 hover:text-red-500 transition-colors text-sm">UI/UX Design</a></li>
+          <li><a href="#" className="text-gray-400 hover:text-red-500 transition-colors text-sm">Custom Software</a></li>
+        </ul>
+      </div>
+
+      {/* Contact Info */}
+      <div className="text-center">
+        <h3 className="text-lg font-semibold text-white mb-6">Get In Touch</h3>
+        <ul className="space-y-4">
+          <li className="flex items-center gap-3 justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-500 flex-shrink-0">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
+            <a href="mailto:damnx.nexus@gmail.com" className="text-gray-400 hover:text-red-500 transition-colors text-sm">
+              damnx.nexus@gmail.com
+            </a>
+          </li>
+          <li className="flex items-center gap-3 justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-500 flex-shrink-0">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <a href="tel:+916388037374" className="text-gray-400 hover:text-red-500 transition-colors text-sm">
+              +91 6388037374
+            </a>
+          </li>
+          <li className="flex items-center gap-3 justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-500 flex-shrink-0">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span className="text-gray-400 text-sm">
+              Ahmedabad, Gujarat, India
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    {/* Bottom Bar */}
+    <div className="text-center pt-8 border-t border-red-900/10">
+      <div className="flex flex-wrap justify-center items-center gap-2 mb-3">
+        <a href="#" className="text-gray-500 hover:text-red-500 transition-colors text-xs">Privacy Policy</a>
+        <span className="text-gray-600 text-xs">•</span>
+        <a href="#" className="text-gray-500 hover:text-red-500 transition-colors text-xs">Terms of Service</a>
+        <span className="text-gray-600 text-xs">•</span>
+        <a href="#" className="text-gray-500 hover:text-red-500 transition-colors text-xs">Cookie Policy</a>
+      </div>
+      <p className="text-gray-600 text-xs">
+        © 2024 DAMNX Solutions. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>
+
       </div>
 
       {/* Chat Bot */}

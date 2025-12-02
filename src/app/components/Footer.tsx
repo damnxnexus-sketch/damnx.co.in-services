@@ -19,7 +19,7 @@ const Footer = () => {
             </p>
             <div className="flex gap-4">
             
-              <a href="#" className="w-10 h-10 rounded-full bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white flex items-center justify-center transition-all">
+              <a href="https://www.linkedin.com/in/damnx-solutions-280b3938b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" className="w-10 h-10 rounded-full bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white flex items-center justify-center transition-all">
                 <Linkedin className="w-5 h-5" />
               </a>
               <a href="https://www.instagram.com/damnx_solutions?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" className="w-10 h-10 rounded-full bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white flex items-center justify-center transition-all">
