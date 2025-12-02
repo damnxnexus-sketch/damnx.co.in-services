@@ -563,10 +563,16 @@ script.onload = () => {
               </div>
             </div>
 
-            <h1 className="text-7xl md:text-9xl font-black mb-10 leading-none observe">
-              <span className="block mb-2 text-red-600">DAMN<span className='text-white'>X</span></span>
-              <span className="text-white block">SO<span className='text-red-600'>L</span>UTION<span className='text-red-600'>S</span></span>
-            </h1>
+           <h1 className="font-black mb-10 leading-none observe text-4xl sm:text-5xl md:text-7xl lg:text-9xl text-center">
+  <span className="block mb-2 text-red-600">
+    DAMN<span className="text-white">X</span>
+  </span>
+  <span className="text-white block">
+    SO<span className="text-red-600">L</span>UTION<span className="text-red-600">S</span>
+  </span>
+</h1>
+
+
             
             <p className="text-2xl md:text-3xl text-gray-300 mb-8 max-w-4xl mx-auto font-light observe">
               Building <span className="text-red-500 font-semibold">industry-level software</span> solutions with uncompromising coding standards
